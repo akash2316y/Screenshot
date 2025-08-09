@@ -74,9 +74,33 @@ class Utilities:
 
     @staticmethod
     def generate_stream_link(media_msg):
-        file_id = media_msg.message_id
+        """
+        Fixed for Pyrogram v2:
+        - message_id → id
+        - Supports extracting file_id if needed
+        """
+        msg_id = media_msg.id  # Pyrogram v2 uses 'id'
         chat_id = media_msg.chat.id
-        return urljoin(Config.HOST, f"file/{chat_id}/{file_id}")
+
+        # Optional: extract file_id for media
+        if media_msg.photo:
+            file_id = media_msg.photo.file_id
+        elif media_msg.video:
+            file_id = media_msg.video.file_id
+        elif media_msg.document:
+            file_id = media_msg.document.file_id
+        elif media_msg.audio:
+            file_id = media_msg.audio.file_id
+        elif media_msg.voice:
+            file_id = media_msg.voice.file_id
+        else:
+            file_id = None
+
+        # Use msg_id/chat_id if your backend streams based on them
+        return urljoin(Config.HOST, f"file/{chat_id}/{msg_id}")
+
+        # Or, if you prefer using Telegram's file_id:
+        # return urljoin(Config.HOST, f"file/{file_id}")
 
     @staticmethod
     async def get_media_info(file_link):
