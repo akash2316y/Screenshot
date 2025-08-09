@@ -3,23 +3,23 @@ import os
 
 class Config:
 
-    API_ID = int(os.environ.get("API_ID", "27705761"))
-    API_HASH = os.environ.get("API_HASH", "822cb334ca4527a134aae97f9fe44fd6")
-    BOT_TOKEN = os.environ.get("BOT_TOKEN", "7626180904:AAHrynubTAgAw7mW7lSUJ76_Nz1AQIehQCU")
+    API_ID = int(os.environ.get("API_ID"))
+    API_HASH = os.environ.get("API_HASH")
+    BOT_TOKEN = os.environ.get("BOT_TOKEN")
     SESSION_NAME = os.environ.get("SESSION_NAME", ":memory:")
-    LOG_CHANNEL = int(os.environ.get("LOG_CHANNEL", "-1002616161685"))
-    DATABASE_URL = os.environ.get("DATABASE_URL", "mongodb+srv://username:password@cluster0.pv6yd2f.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
-    AUTH_USERS = [int(i) for i in os.environ.get("AUTH_USERS", "8110231942").split() if i.strip()]
+    LOG_CHANNEL = int(os.environ.get("LOG_CHANNEL"))
+    DATABASE_URL = os.environ.get("DATABASE_URL")
+    AUTH_USERS = [int(i) for i in os.environ.get("AUTH_USERS", "").split(" ")]
     MAX_PROCESSES_PER_USER = int(os.environ.get("MAX_PROCESSES_PER_USER", 2))
     MAX_TRIM_DURATION = int(os.environ.get("MAX_TRIM_DURATION", 600))
-    TRACK_CHANNEL = int(os.environ.get("TRACK_CHANNEL", 0)) if os.environ.get("TRACK_CHANNEL") else None
+    TRACK_CHANNEL = int(os.environ.get("TRACK_CHANNEL", False))
     SLOW_SPEED_DELAY = int(os.environ.get("SLOW_SPEED_DELAY", 5))
     HOST = os.environ.get("HOST", "")
     TIMEOUT = int(os.environ.get("TIMEOUT", 60 * 30))
-    DEBUG = os.environ.get("DEBUG", "False").lower() in ("true", "1", "yes")
+    DEBUG = bool(os.environ.get("DEBUG"))
     WORKER_COUNT = int(os.environ.get("WORKER_COUNT", 20))
     IAM_HEADER = os.environ.get("IAM_HEADER", "")
-    
+
     COLORS = [
         "white",
         "black",
