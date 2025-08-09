@@ -10,10 +10,13 @@ from ..config import Config
 
 @ScreenShotBot.on_message(
     filters.private
-    & ((filters.text & ~filters.edited) | filters.media)
+    & (filters.text | filters.media)   # filters.edited removed
     & filters.incoming
 )
 async def _(c, m):
+    # Ignore edited messages
+    if m.edit_date:
+        return
 
     if m.media:
         if not Utilities.is_valid_file(m):
