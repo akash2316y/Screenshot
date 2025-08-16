@@ -20,7 +20,7 @@ log = logging.getLogger(__name__)
 class ScreenShotBot(Client):
     def __init__(self):
         super().__init__(
-            session_name=Config.SESSION_NAME,
+            Config.SESSION_NAME,   # ab yaha positional argument
             bot_token=Config.BOT_TOKEN,
             api_id=Config.API_ID,
             api_hash=Config.API_HASH,
@@ -91,3 +91,4 @@ class ScreenShotBot(Client):
                 await reply_message.edit_text("Broadcast completed")
         except Exception as e:
             log.error(e, exc_info=True)
+            
